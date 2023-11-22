@@ -48,7 +48,7 @@ function App() {
     for (let i = 0; i < 5; i++) {
       curword += board[currentattempt.attempt][i];
     }
-    if (wordSet.has(curword.toLocaleLowerCase())) {
+    if (wordSet.has(curword.toLowerCase())) {
       setCurrentattempt((pre) => ({
         ...pre,
         letterpos: 0,
@@ -69,13 +69,10 @@ function App() {
         }));
       });
     }
-    if (curword.toLocaleLowerCase() === correctWord.toLocaleLowerCase()) {
+    if (curword.toLowerCase() === correctWord.toLowerCase()) {
       setGameOver((pre) => ({ ...pre, gameOver: true, guessedWord: true }));
     }
-    if (
-      currentattempt.attempt === 5 &&
-      wordSet.has(curword.toLocaleLowerCase())
-    ) {
+    if (currentattempt.attempt === 5 && wordSet.has(curword.toLowerCase())) {
       setGameOver((pre) => ({ ...pre, gameOver: true, guessedWord: false }));
     }
   };

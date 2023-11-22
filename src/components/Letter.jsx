@@ -11,11 +11,9 @@ function Letter({ letterpos, attemptval }) {
   } = useContext(Appcontext);
   const letter = board[attemptval][letterpos];
   const correct =
-    correctWord[letterpos] === letter.toLocaleLowerCase() && letter.length > 0;
+    correctWord[letterpos] === letter.toLowerCase() && letter.length > 0;
   const almost =
-    !correct &&
-    correctWord.includes(letter.toLocaleLowerCase()) &&
-    letter.length > 0;
+    !correct && correctWord.includes(letter.toLowerCase()) && letter.length > 0;
 
   const letterState =
     currentattempt.attempt > attemptval
