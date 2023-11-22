@@ -57,7 +57,9 @@ function App() {
     } else {
       console.log(curword.toLowerCase());
       console.log(wordSet.has(curword.toLowerCase()));
+      console.log(wordSet.has("right\r"));
       console.log(wordSet.has("right"));
+      console.log(wordSet);
       const newboard = [...board];
       newboard[currentattempt.attempt] = ["", "", "", "", ""];
       Swal.fire({
