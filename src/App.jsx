@@ -72,10 +72,17 @@ function App() {
         }));
       });
     }
-    if (curword.toLowerCase() === correctWord.toLowerCase()) {
+    if (
+      curword.toLowerCase() === correctWord.toLowerCase() ||
+      `${curword.toLowerCase()}\r` === correctWord.toLowerCase()
+    ) {
       setGameOver((pre) => ({ ...pre, gameOver: true, guessedWord: true }));
     }
-    if (currentattempt.attempt === 5 && wordSet.has(curword.toLowerCase())) {
+    if (
+      currentattempt.attempt === 5 &&
+      (wordSet.has(curword.toLowerCase()) ||
+        wordSet.has(`${curword.toLowerCase()}\r`))
+    ) {
       setGameOver((pre) => ({ ...pre, gameOver: true, guessedWord: false }));
     }
   };
