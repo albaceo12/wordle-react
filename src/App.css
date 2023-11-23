@@ -346,4 +346,5 @@ nav h1 {
   color: white;
   border: 1px solid #5111c9;
   cursor: pointer;
+  font-weight: bold;
 }
