@@ -37,7 +37,9 @@ function Gameover() {
       <div
         className={`gameover ${
           gameOver.guessedWord || flagnum % 2 === 0 ? "green" : "red"
-        } ${gameOver.gameOver ? "gameoverShow" : ""}`}
+        } ${gameOver.gameOver ? "gameoverShow" : ""} ${
+          gameOver.gameOver ? "gameoverZindex" : ""
+        }`}
       >
         <div className="modalclose">
           <span onClick={removeresultmodal}>&times;</span>

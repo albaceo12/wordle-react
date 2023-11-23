@@ -198,13 +198,14 @@ nav h1 {
   padding: 4px;
   margin: 3px 0;
   position: absolute;
-  z-index: 1000;
   width: 400px;
   top: 20%;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-
+.gameoverZindex {
+  z-index: 10000;
+}
 .gameoverShow {
   opacity: 1;
 }
