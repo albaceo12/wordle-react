@@ -4,7 +4,7 @@ import { Appcontext } from "../App";
 
 function Modalfound() {
   const { backdrophandle, wordnotfound } = useContext(Appcontext);
-  const closemodal = useCallback(() => {
+  const closingmodal = useCallback(() => {
     backdrophandle();
   }, [wordnotfound]);
   return (
@@ -16,9 +16,9 @@ function Modalfound() {
         <h1>Oops...</h1>
       </div>
       <h3>Word not Found! Please Try Again</h3>
-      <button onClick={closemodal} onTouchStart={closemodal}>
-        OK
-      </button>
+      <div>
+        <button onClick={closingmodal}>OK</button>
+      </div>
     </div>
   );
 }
