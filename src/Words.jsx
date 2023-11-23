@@ -13,7 +13,7 @@ export const generateWord = async () => {
   await fetch(wordbank)
     .then((res) => res.text())
     .then((result) => {
-      const wordArr = result.split("\r\n");
+      const wordArr = result.split("\n");
       todaysWord = wordArr[Math.floor(Math.random() * wordArr.length)];
       wordset = new Set(wordArr);
     });
