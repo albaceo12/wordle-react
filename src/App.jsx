@@ -6,6 +6,8 @@ import { boardDefault } from "./Words";
 import { generateWord } from "./Words";
 import Gameover from "./components/Gameover";
 import Swal from "sweetalert2";
+import Monofoundbackdrop from "./components/Monofoundbackdrop";
+import Modalfound from "./components/Modalfound";
 export const Appcontext = createContext();
 function App() {
   const [board, setBoard] = useState(boardDefault);
@@ -18,6 +20,8 @@ function App() {
   const [almostletters, setAlmostletters] = useState([]);
   const [correctletters, setCorrectletters] = useState([]);
   const [correctWord, setCorrectWord] = useState("");
+  const [wordnotfound, setWordnotfound] = useState(false);
+  const [flagnum, setFlagnum] = useState(0);
   const [gameOver, setGameOver] = useState({
     gameOver: false,
     guessedWord: false,
@@ -58,25 +62,14 @@ function App() {
         attempt: currentattempt.attempt + 1,
       }));
     } else {
-      const newboard = [...board];
-      newboard[currentattempt.attempt] = ["", "", "", "", ""];
-      Swal.fire({
-        title: "Oops...",
-        text: "Word not Found! Please Try Again",
-        icon: "error",
-      }).then((x) => {
-        setBoard((pre) => newboard);
-        setCurrentattempt((pre) => ({
-          ...pre,
-          letterpos: 0,
-        }));
-      });
+      setWordnotfound((pre) => true);
     }
     if (
       curword.toLowerCase() === correctWord.toLowerCase() ||
       `${curword.toLowerCase()}\r` === correctWord.toLowerCase()
     ) {
       setGameOver((pre) => ({ ...pre, gameOver: true, guessedWord: true }));
+      setFlagnum((pre) => 2 * pre);
     }
     if (
       currentattempt.attempt === 5 &&
@@ -84,6 +77,7 @@ function App() {
         wordSet.has(`${curword.toLowerCase()}\r`))
     ) {
       setGameOver((pre) => ({ ...pre, gameOver: true, guessedWord: false }));
+      setFlagnum((pre) => 2 * pre + 1);
     }
   };
   useEffect(() => {
@@ -93,37 +87,57 @@ function App() {
     });
   }, []);
   // const correctWord = "right";
+  const backdrophandle = () => {
+    const newboard = [...board];
+    newboard[currentattempt.attempt] = ["", "", "", "", ""];
+    setWordnotfound((pre) => false);
+    setBoard((pre) => newboard);
+    setCurrentattempt((pre) => ({
+      ...pre,
+      letterpos: 0,
+    }));
+  };
   return (
-    <div className="App">
-      <nav>
-        <h1>Wordle</h1>
-      </nav>
-      <Appcontext.Provider
-        value={{
-          board,
-          setBoard,
-          currentattempt,
-          setCurrentattempt,
-          onSelect,
-          onEnter,
-          onDelete,
-          correctWord,
-          disabledletters,
-          setDisabledletters,
-          gameOver,
-          almostletters,
-          setAlmostletters,
-          correctletters,
-          setCorrectletters,
-          setGameOver,
-        }}
-      >
-        <div className="game">
-          <Board />
-          {gameOver.gameOver ? <Gameover /> : <KeyBoard />}
-        </div>
-      </Appcontext.Provider>
-    </div>
+    <>
+      {wordnotfound && <Monofoundbackdrop show={backdrophandle} />}
+
+      <div className="App">
+        <nav>
+          <h1>Wordle</h1>
+        </nav>
+        <Appcontext.Provider
+          value={{
+            board,
+            setBoard,
+            currentattempt,
+            setCurrentattempt,
+            onSelect,
+            onEnter,
+            onDelete,
+            correctWord,
+            disabledletters,
+            setDisabledletters,
+            gameOver,
+            almostletters,
+            setAlmostletters,
+            correctletters,
+            setCorrectletters,
+            setGameOver,
+            wordnotfound,
+            backdrophandle,
+            flagnum,
+            setFlagnum,
+          }}
+        >
+          <div className="game">
+            <Modalfound />
+            <Board />
+            <Gameover />
+            {gameOver.gameOver ? "" : <KeyBoard />}
+          </div>
+        </Appcontext.Provider>
+      </div>
+    </>
   );
 }
 

@@ -12,6 +12,7 @@ function Gameover() {
     setAlmostletters,
     setCorrectletters,
     correctWord,
+    flagnum,
   } = useContext(Appcontext);
   const removeresultmodal = useCallback(() => {
     setGameOver((pre) => ({ ...pre, gameOver: false, guessedWord: false }));
@@ -29,15 +30,20 @@ function Gameover() {
     setAlmostletters((pre) => []);
     setCorrectletters((pre) => []);
   }, [gameOver.gameOver]);
+
   return (
     <>
       {gameOver.gameOver && <Backdrop />}
-      <div className={`gameover ${gameOver.guessedWord ? "green" : "red"}`}>
+      <div
+        className={`gameover ${
+          gameOver.guessedWord || flagnum % 2 === 0 ? "green" : "red"
+        } ${gameOver.gameOver ? "gameoverShow" : ""}`}
+      >
         <div className="modalclose">
           <span onClick={removeresultmodal}>&times;</span>
         </div>
         <h3>
-          {gameOver.guessedWord
+          {gameOver.guessedWord || flagnum % 2 === 0
             ? "You Correctly Guessed the Wordle"
             : "You Failed to Guess the Word"}
         </h3>
@@ -49,7 +55,7 @@ function Gameover() {
               : correctWord.toUpperCase()}
           </span>
         </h1>
-        {gameOver.guessedWord && (
+        {(gameOver.guessedWord || flagnum % 2 === 0) && (
           <h3>You guessed in {currentattempt.attempt} attempts</h3>
         )}
       </div>
