@@ -5,7 +5,6 @@ import KeyBoard from "./components/KeyBoard.jsx";
 import { boardDefault } from "./Words";
 import { generateWord } from "./Words";
 import Gameover from "./components/Gameover";
-import Swal from "sweetalert2";
 import Monofoundbackdrop from "./components/Monofoundbackdrop";
 import Modalfound from "./components/Modalfound";
 export const Appcontext = createContext();
