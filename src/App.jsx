@@ -48,18 +48,16 @@ function App() {
     for (let i = 0; i < 5; i++) {
       curword += board[currentattempt.attempt][i];
     }
-    if (wordSet.has(`${curword.toLowerCase()}\r`)) {
+    if (
+      wordSet.has(`${curword.toLowerCase()}\r`) || // for working out to github deploying we would do this way
+      wordSet.has(curword.toLowerCase())
+    ) {
       setCurrentattempt((pre) => ({
         ...pre,
         letterpos: 0,
         attempt: currentattempt.attempt + 1,
       }));
     } else {
-      console.log(curword.toLowerCase());
-      console.log(wordSet.has(`${curword.toLowerCase()}\r`));
-      console.log(wordSet.has("right\r"));
-      console.log(wordSet.has("right"));
-      console.log(`${curword.toLowerCase()}\r`);
       const newboard = [...board];
       newboard[currentattempt.attempt] = ["", "", "", "", ""];
       Swal.fire({
