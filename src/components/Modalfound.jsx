@@ -16,7 +16,9 @@ function Modalfound() {
         <h1>Oops...</h1>
       </div>
       <h3>Word not Found! Please Try Again</h3>
-      <button onClick={closemodal}>OK</button>
+      <button onClick={closemodal} onTouchStart={closemodal}>
+        OK
+      </button>
     </div>
   );
 }
