@@ -335,7 +335,9 @@ nav h1 {
   font-size: 80px;
   color: red;
 }
-.modalfound button {
+.modalfound .ok-modal {
+  display: grid;
+  place-items: center;
   width: 70px;
   height: 40px;
   font-size: 20px;
