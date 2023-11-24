@@ -64,16 +64,17 @@ function App() {
       setWordnotfound((pre) => true);
     }
     if (
-      curword.toLowerCase() === correctWord.toLowerCase() ||
-      `${curword.toLowerCase()}\r` === correctWord.toLowerCase()
+      curword.toLowerCase().includes(correctWord.toLowerCase()) ||
+      `${curword.toLowerCase()}\r`.includes(correctWord.toLowerCase())
     ) {
+      console.log("fff");
       setGameOver((pre) => ({ ...pre, gameOver: true, guessedWord: true }));
       setFlagnum((pre) => 2 * pre);
     }
     if (
       currentattempt.attempt === 5 &&
-      (wordSet.has(curword.toLowerCase()) ||
-        wordSet.has(`${curword.toLowerCase()}\r`))
+      (!curword.toLowerCase().includes(correctWord.toLowerCase()) ||
+        !`${curword.toLowerCase()}\r`.includes(correctWord.toLowerCase()))
     ) {
       setGameOver((pre) => ({ ...pre, gameOver: true, guessedWord: false }));
       setFlagnum((pre) => 2 * pre + 1);
@@ -84,7 +85,7 @@ function App() {
       setWordSet(words.wordset);
       setCorrectWord(words.todaysWord);
     });
-  }, []);
+  }, [gameOver]);
   // const correctWord = "right";
   const backdrophandle = () => {
     const newboard = [...board];
