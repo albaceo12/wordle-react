@@ -21,6 +21,7 @@ function App() {
   const [correctWord, setCorrectWord] = useState("");
   const [wordnotfound, setWordnotfound] = useState(false);
   const [flagnum, setFlagnum] = useState(0);
+  const [closetesult, setClosetesult] = useState(false);
   const [gameOver, setGameOver] = useState({
     gameOver: false,
     guessedWord: false,
@@ -55,6 +56,7 @@ function App() {
       wordSet.has(`${curword.toLowerCase()}\r`) || // for working out to github deploying we would do this way
       wordSet.has(curword.toLowerCase())
     ) {
+      // console.log("ttt");
       setCurrentattempt((pre) => ({
         ...pre,
         letterpos: 0,
@@ -62,20 +64,28 @@ function App() {
       }));
     } else {
       setWordnotfound((pre) => true);
+      // console.log("zzz");
+      return true;
     }
     if (
-      curword.toLowerCase().includes(correctWord.toLowerCase()) ||
-      `${curword.toLowerCase()}\r`.includes(correctWord.toLowerCase())
+      correctWord.toLowerCase().includes(curword.toLowerCase())
+      // `${curword.toLowerCase()}\r`.includes(correctWord.toLowerCase())
     ) {
-      console.log("fff");
+      // console.log("fff");
       setGameOver((pre) => ({ ...pre, gameOver: true, guessedWord: true }));
       setFlagnum((pre) => 2 * pre);
     }
+    // console.log(
+    //   !correctWord.toLowerCase().includes(curword.toLowerCase())
+    // !`${curword.toLowerCase()}\r`.includes(correctWord.toLowerCase())
+    // );
     if (
       currentattempt.attempt === 5 &&
-      (!curword.toLowerCase().includes(correctWord.toLowerCase()) ||
-        !`${curword.toLowerCase()}\r`.includes(correctWord.toLowerCase()))
+      !correctWord.toLowerCase().includes(curword.toLowerCase())
+      // !correctWord.toLowerCase().includes(`${curword.toLowerCase()}\r`))
+      // !wordnotfound
     ) {
+      // console.log("shshsh");
       setGameOver((pre) => ({ ...pre, gameOver: true, guessedWord: false }));
       setFlagnum((pre) => 2 * pre + 1);
     }
@@ -85,8 +95,8 @@ function App() {
       setWordSet(words.wordset);
       setCorrectWord(words.todaysWord);
     });
-  }, [gameOver]);
-  // const correctWord = "right";
+  }, [closetesult]);
+  // const correctWord = "voice";
   const backdrophandle = () => {
     const newboard = [...board];
     newboard[currentattempt.attempt] = ["", "", "", "", ""];
@@ -127,6 +137,8 @@ function App() {
             backdrophandle,
             flagnum,
             setFlagnum,
+            closetesult,
+            setClosetesult,
           }}
         >
           <div className="game">
