@@ -1,11 +1,10 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useCallback } from "react";
 import "./App.css";
 import Board from "./components/Board.jsx";
 import KeyBoard from "./components/KeyBoard.jsx";
 import { boardDefault } from "./Words";
 import { generateWord } from "./Words";
 import Gameover from "./components/Gameover";
-import Monofoundbackdrop from "./components/Monofoundbackdrop";
 import Modalfound from "./components/Modalfound";
 export const Appcontext = createContext();
 function App() {
@@ -21,7 +20,7 @@ function App() {
   const [correctWord, setCorrectWord] = useState("");
   const [wordnotfound, setWordnotfound] = useState(false);
   const [flagnum, setFlagnum] = useState(0);
-  const [closetesult, setClosetesult] = useState(false);
+  const [closeresult, setCloseresult] = useState(false);
   const [gameOver, setGameOver] = useState({
     gameOver: false,
     guessedWord: false,
@@ -75,10 +74,6 @@ function App() {
       setGameOver((pre) => ({ ...pre, gameOver: true, guessedWord: true }));
       setFlagnum((pre) => 2 * pre);
     }
-    // console.log(
-    //   !correctWord.toLowerCase().includes(curword.toLowerCase())
-    // !`${curword.toLowerCase()}\r`.includes(correctWord.toLowerCase())
-    // );
     if (
       currentattempt.attempt === 5 &&
       !correctWord.toLowerCase().includes(curword.toLowerCase())
@@ -91,13 +86,14 @@ function App() {
     }
   };
   useEffect(() => {
+    // console.log(closeresult);
     generateWord().then((words) => {
       setWordSet(words.wordset);
       setCorrectWord(words.todaysWord);
     });
-  }, [closetesult]);
-  // const correctWord = "voice";
-  const backdrophandle = () => {
+  }, [closeresult]);
+  // const correctWord = "chock";
+  const backdrophandle = useCallback(() => {
     const newboard = [...board];
     newboard[currentattempt.attempt] = ["", "", "", "", ""];
     setWordnotfound((pre) => false);
@@ -106,11 +102,9 @@ function App() {
       ...pre,
       letterpos: 0,
     }));
-  };
+  }, [wordnotfound]);
   return (
     <>
-      {wordnotfound && <Monofoundbackdrop show={backdrophandle} />}
-
       <div className="App">
         <nav>
           <h1>Wordle</h1>
@@ -137,8 +131,8 @@ function App() {
             backdrophandle,
             flagnum,
             setFlagnum,
-            closetesult,
-            setClosetesult,
+            closeresult,
+            setCloseresult,
           }}
         >
           <div className="game">

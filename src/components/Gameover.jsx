@@ -13,11 +13,11 @@ function Gameover() {
     setCorrectletters,
     correctWord,
     flagnum,
-    closetesult,
-    setClosetesult,
+    closeresult,
+    setCloseresult,
   } = useContext(Appcontext);
   const removeresultmodal = useCallback(() => {
-    setClosetesult((pre) => !pre);
+    setCloseresult((pre) => !pre);
     setGameOver((pre) => ({ ...pre, gameOver: false, guessedWord: false }));
 
     setBoard((pre) => [
@@ -32,7 +32,7 @@ function Gameover() {
     setDisabledletters((pre) => []);
     setAlmostletters((pre) => []);
     setCorrectletters((pre) => []);
-  }, [closetesult]);
+  }, [closeresult]);
 
   return (
     <>

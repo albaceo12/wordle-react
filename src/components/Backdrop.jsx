@@ -9,11 +9,11 @@ function Backdrop() {
     setDisabledletters,
     setAlmostletters,
     setCorrectletters,
-    closetesult,
-    setClosetesult,
+    closeresult,
+    setCloseresult,
   } = useContext(Appcontext);
   const removebackdrop = useCallback(() => {
-    setClosetesult((pre) => !pre);
+    setCloseresult((pre) => !pre);
     setGameOver((pre) => ({ ...pre, gameOver: false, guessedWord: false }));
 
     setBoard((pre) => [
@@ -28,7 +28,7 @@ function Backdrop() {
     setDisabledletters((pre) => []);
     setAlmostletters((pre) => []);
     setCorrectletters((pre) => []);
-  }, [closetesult]);
+  }, [closeresult]);
   return <div className="backdrop" onClick={removebackdrop}></div>;
 }
 

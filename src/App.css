@@ -200,6 +200,7 @@ nav h1 {
   position: absolute;
   width: 400px;
   top: 20%;
+  z-index: -1000;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -276,6 +277,7 @@ nav h1 {
   top: 0;
   background-color: rgba(0, 0, 0, 0.87);
 }
+
 .modalnofound {
   width: 100%;
   height: 100%;
@@ -291,12 +293,11 @@ nav h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: -1000;
   top: 17%;
   width: 400px;
   height: 300px;
   padding-bottom: 20px;
-  /* left: 40%; */
   background-color: white;
   color: #000000;
   padding: 10px;
@@ -331,6 +332,7 @@ nav h1 {
 }
 .scale {
   opacity: 1;
+  z-index: 1000;
 }
 .modalfound .icon {
   font-size: 80px;
